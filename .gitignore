@@ -22,4 +22,4 @@ Thumbs.db
 # Uvicorn logs or runtime
 *.pid
 
-encrypt_pass.py
+./encrypt_pass.py

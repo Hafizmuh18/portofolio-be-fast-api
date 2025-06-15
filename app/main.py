@@ -1,6 +1,8 @@
 import os
 from dotenv import load_dotenv
 
+load_dotenv()
+
 from fastapi import FastAPI, Depends, HTTPException, status
 from fastapi.responses import JSONResponse
 from fastapi.security import OAuth2PasswordRequestForm
@@ -11,9 +13,23 @@ from .database import get_db, create_db_and_tables
 from . import schemas, crud, auth
 from .ws.router import ws_router
 
-load_dotenv()
+from starlette.middleware.cors import CORSMiddleware 
+
 
 app = FastAPI()
+origins = [
+    "http://localhost:3000",
+    "http://127.0.0.1:3000",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,          # Mengizinkan origin spesifik
+    allow_credentials=True,         # Mengizinkan pengiriman kredensial (seperti cookies, header Authorization)
+    allow_methods=["*"],            # Mengizinkan semua metode HTTP (GET, POST, PUT, DELETE, dll.)
+    allow_headers=["*"],            # Mengizinkan semua header (penting untuk Authorization header JWT)
+)
+
 app.include_router(ws_router)
 
 @app.on_event("startup")
