@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.db
+*.log
+.env
+.venv/
+venv/
+env/
+*.env
+*.bak
+*.swp
+
+# VS Code
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Uvicorn logs or runtime
+*.pid
+
+encrypt_pass.py
