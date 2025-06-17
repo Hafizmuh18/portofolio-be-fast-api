@@ -24,7 +24,7 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,          # Mengizinkan origin spesifik
+    allow_origins=["*"],          # Mengizinkan origin spesifik
     allow_credentials=True,         # Mengizinkan pengiriman kredensial (seperti cookies, header Authorization)
     allow_methods=["*"],            # Mengizinkan semua metode HTTP (GET, POST, PUT, DELETE, dll.)
     allow_headers=["*"],            # Mengizinkan semua header (penting untuk Authorization header JWT)
@@ -67,10 +67,10 @@ async def auth_and_enter_chat(form_data: OAuth2PasswordRequestForm = Depends(), 
                 token_type="bearer",
                 room_id=user_room.id,
                 username=user_room.username,
-                role="user"
+                role="user" 
             )
         else:
-            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect password for user")
+            raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Incorrect password for user, input corect password or create new username and password")
     else:
         new_room_data = schemas.RoomCreate(username=form_data.username, password=form_data.password)
         new_room = crud.create_room(db, new_room_data)
